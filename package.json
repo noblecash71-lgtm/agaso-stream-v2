@@ -1,0 +1,9 @@
+{
+  "name": "agastream",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AgaStream shared movie and series catalog",
+  "scripts": {"start": "node server.js", "build": "sh build-static.sh"},
+  "engines": {"node": ">=22"},
+  "dependencies": {"mysql2": "^3.14.3"}
+}

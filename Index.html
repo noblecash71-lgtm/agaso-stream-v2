@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AgasobanuyeStream | Watch Free Movies & Series Online</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="icon" href="./Logo.png" />
+<link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="showMainPage()" aria-label="AgaStream home"><span class="brand-mark" id="brandMark">A</span><span class="brand-word" id="brandWord">AGA<span>STREAM</span></span></div>
+  <button class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#home" class="nav-link active" onclick="setActive(this);showMainPage()">Home</a>
+    <a href="#movies" class="nav-link" onclick="setActive(this);showMainPage()">Movies</a>
+    <a href="#tv" class="nav-link" onclick="setActive(this);showMainPage()">TV Series</a>
+    <div class="cat-drop">
+      <button class="cat-drop-btn" onclick="openAllCategoriesPage()">Categories <i class="fa fa-caret-down" style="font-size:.8rem"></i></button>
+      <div class="cat-menu" id="catDropMenu"></div>
+    </div>
+    <a href="#" class="nav-link" onclick="setActive(this);openAllInterpretersPage();return false;">Interpreters</a>
+    <button class="admin-nav-btn" onclick="openAdminPanel()"><i class="fa fa-lock"></i> Admin</button>
+  </div>
+  <div class="nav-search-wrap">
+    <div class="nav-search">
+      <input type="search" id="searchInput" placeholder="Search movies, series…" oninput="handleSearch(this.value)"/>
+      <button class="nav-search-btn"><i class="fa fa-search"></i></button>
+    </div>
+    <div id="searchDropdown"></div>
+  </div>
+  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle light and dark theme"><i class="fa fa-sun-o"></i><span>Light</span></button>
+</nav>
+
+<!-- ═══ MAIN PAGE ═══ -->
+<div id="main-page">
+
+<!-- HERO -->
+<section id="home">
+  <div id="hero">
+    <div class="slide-dots" id="slideDots"></div>
+    <div class="slide-arrows">
+      <button class="slide-arrow" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="slide-arrow" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+    <div class="slide-progress-bar"><div class="slide-progress-fill" id="slideProgressFill"></div></div>
+  </div>
+</section>
+
+<!-- NEW FILMS -->
+<section class="section" id="new-films-section">
+  <div class="section-hdr">
+    <div class="section-title">NEW <span>Films</span></div>
+    <button class="see-all-btn" onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">See All</button>
+  </div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-new',-1)">&#10094;</button>
+    <div class="slider-row" id="row-new"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-new',1)">&#10095;</button>
+  </div>
+</section>
+
+<!-- TRENDING -->
+<section class="section" id="movies" style="background:var(--surface)">
+  <div class="section-hdr"><div class="section-title">TRENDING <span>Now</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-trending',-1)">&#10094;</button>
+    <div class="slider-row" id="row-trending"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-trending',1)">&#10095;</button>
+  </div>
+</section>
+
+<!-- TV SERIES -->
+<section class="section" id="tv">
+  <div class="section-hdr"><div class="section-title">TV <span>Series</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-series',-1)">&#10094;</button>
+    <div class="slider-row" id="row-series"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-series',1)">&#10095;</button>
+  </div>
+</section>
+
+<!-- GENRE ROWS -->
+<section class="section" id="action">
+  <div class="section-hdr"><div class="section-title">ACTION <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-action',-1)">&#10094;</button>
+    <div class="slider-row" id="row-action"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-action',1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="section" id="drama" style="background:var(--surface)">
+  <div class="section-hdr"><div class="section-title">DRAMA <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-drama',-1)">&#10094;</button>
+    <div class="slider-row" id="row-drama"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-drama',1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="section" id="horror">
+  <div class="section-hdr"><div class="section-title">HORROR <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-horror',-1)">&#10094;</button>
+    <div class="slider-row" id="row-horror"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-horror',1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="section" id="romantic" style="background:var(--surface)">
+  <div class="section-hdr"><div class="section-title">ROMANTIC <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-romantic',-1)">&#10094;</button>
+    <div class="slider-row" id="row-romantic"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-romantic',1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="section" id="documentary">
+  <div class="section-hdr"><div class="section-title">DOCUMENTARY <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-documentary',-1)">&#10094;</button>
+    <div class="slider-row" id="row-documentary"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-documentary',1)">&#10095;</button>
+  </div>
+</section>
+
+<section class="section" id="cartoon" style="background:var(--surface)">
+  <div class="section-hdr"><div class="section-title">CARTOON <span>Films</span></div></div>
+  <div class="slider-wrap">
+    <button class="sl-arrow left" onclick="scrollRow('row-cartoon',-1)">&#10094;</button>
+    <div class="slider-row" id="row-cartoon"></div>
+    <button class="sl-arrow right" onclick="scrollRow('row-cartoon',1)">&#10095;</button>
+  </div>
+</section>
+
+<div id="custom-sections"></div>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories-section" style="background:var(--surface)">
+  <div class="section-hdr"><div class="section-title">BROWSE <span>Categories</span></div></div>
+  <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<!-- INTERPRETERS -->
+<section class="section" id="interpreters-section">
+  <div class="section-hdr"><div class="section-title">Interpreters</div><small style="color:var(--muted);font-size:.75rem">Click an interpreter to see their films</small></div>
+  <div class="interp-grid" id="interpGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <h3>About Us</h3>
+    <p id="footerAbout">Your premier platform for watching Agasobanuye movies and series online for free. Entertainment dubbed in Kinyarwanda for everyone.</p>
+  </div>
+  <div>
+    <h3>Quick Links</h3>
+    <a href="#romantic" onclick="showMainPage()">Romantic</a>
+    <a href="#horror" onclick="showMainPage()">Horror</a>
+    <a href="#action" onclick="showMainPage()">Action</a>
+    <a href="#drama" onclick="showMainPage()">Drama</a>
+    <a href="#documentary" onclick="showMainPage()">Documentary</a>
+    <a href="#cartoon" onclick="showMainPage()">Cartoon</a>
+  </div>
+  <div>
+    <h3>Services</h3>
+    <a href="#movies" onclick="showMainPage()">Movies</a>
+    <a href="#tv" onclick="showMainPage()">TV Series</a>
+    <a href="#documentary" onclick="showMainPage()">Documentary</a>
+    <a href="#cartoon" onclick="showMainPage()">Cartoon</a>
+  </div>
+  <div>
+    <h3>Interpreters</h3>
+    <a onclick="openInterpPage('Rocky')">Rocky</a>
+    <a onclick="openInterpPage('Gaheza')">Gaheza</a>
+    <a onclick="openInterpPage('Savimbi')">Savimbi</a>
+    <a onclick="openInterpPage('Sankara')">Sankara</a>
+    <a onclick="openInterpPage('Junior')">Junior</a>
+    <a onclick="openInterpPage('Master P')">Master P</a>
+  </div>
+  <div>
+    <h3>Contact Us</h3>
+    <a id="footerPhone" href="tel:+250715136109"><i class="fa fa-phone"></i><span>+250 715 136 109</span></a>
+    <a id="footerEmail" href="mailto:info@agasobanuyestream.com"><i class="fa fa-envelope"></i><span>agastream250@gmail.com</span></a>
+    <a id="footerYoutube" href="https://www.youtube.com" target="_blank"><i class="fab fa-youtube"></i><span>AgasobanuyeStream</span></a>
+    <a id="footerInstagram" href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i><span>agasobanuyestream250</span></a>
+    <a id="footerFacebook" href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook"></i><span>agasobanuyestream250</span></a>
+  </div>
+  <div class="footer-copyright">
+    &copy; <span id="footerYear">2026</span> <span id="footerCopyright">NobleCash Group</span> | All Rights Reserved
+  </div>
+</footer>
+</div><!-- end main-page -->
+
+<!-- ═══ INTERPRETER SPOTLIGHT PAGE ═══ -->
+<div id="interp-page">
+  <div class="interp-page-hero">
+    <div class="interp-page-avatar" id="ip-avatar"></div>
+    <div>
+      <div class="interp-page-name" id="ip-name"></div>
+      <div class="interp-page-meta" id="ip-meta"></div>
+    </div>
+    <button class="back-btn" onclick="showMainPage()">&#8592; Back</button>
+  </div>
+  <div class="section-hdr" style="padding:1.5rem 1.5rem 0">
+    <div class="section-title">FILMS <span id="ip-title-name"></span></div>
+  </div>
+  <div class="full-grid" id="ip-grid"></div>
+</div>
+
+<!-- ═══ CATEGORY SPOTLIGHT PAGE ═══ -->
+<div id="cat-page">
+  <div class="cat-page-hero">
+    <div>
+      <div class="cat-page-name" id="cp-name"></div>
+      <div class="cat-page-meta" id="cp-meta"></div>
+    </div>
+    <button class="back-btn" onclick="showMainPage()">&#8592; Back</button>
+  </div>
+  <div class="section-hdr" style="padding:1.5rem 1.5rem 0">
+    <div class="section-title">ALL <span id="cp-title-name"></span></div>
+  </div>
+  <div class="full-grid" id="cp-grid"></div>
+</div>
+
+<!-- ═══ SEARCH RESULTS PAGE ═══ -->
+<div id="search-page" style="display:none;min-height:100vh;padding-top:80px">
+  <div class="interp-page-hero">
+    <div>
+      <div class="interp-page-name" id="sp-title">Search Results</div>
+      <div class="interp-page-meta" id="sp-meta"></div>
+    </div>
+    <button class="back-btn" onclick="showMainPage();document.getElementById('searchInput').value=''">&#8592; Back</button>
+  </div>
+  <div class="section-hdr" style="padding:1.5rem 1.5rem 0">
+    <div class="section-title">SEARCH <span id="sp-query-label">Results</span></div>
+  </div>
+  <div class="full-grid" id="sp-grid"></div>
+</div>
+
+<!-- ═══ ALL INTERPRETERS PAGE ═══ -->
+<div id="all-interp-page" style="display:none;min-height:100vh;padding-top:80px">
+  <div class="interp-page-hero">
+    <div>
+      <div class="interp-page-name">🎙 All Interpreters</div>
+      <div class="interp-page-meta">Click an interpreter to browse their films</div>
+    </div>
+    <button class="back-btn" onclick="showMainPage()">&#8592; Back</button>
+  </div>
+  <div class="section" style="padding-top:1.5rem">
+    <div class="interp-grid" id="all-interp-grid"></div>
+  </div>
+</div>
+
+<!-- ═══ ALL CATEGORIES PAGE ═══ -->
+<div id="all-cat-page" style="display:none;min-height:100vh;padding-top:80px">
+  <div class="interp-page-hero">
+    <div>
+      <div class="interp-page-name">Browse Categories</div>
+      <div class="interp-page-meta">Choose a genre to explore</div>
+    </div>
+    <button class="back-btn" onclick="showMainPage()">&#8592; Back</button>
+  </div>
+  <div class="section" style="padding-top:1.5rem">
+    <div class="cat-grid" id="all-cat-grid"></div>
+  </div>
+</div>
+
+<!-- ═══ ADMIN PANEL ═══ -->
+<div id="admin-page" style="display:none;min-height:100vh;padding-top:72px">
+  <div class="admin-shell">
+<div class="admin-heading"><div><span class="admin-eyebrow">PRIVATE STUDIO</span><h1>Content <span>Admin</span></h1><p>Manage the catalog shown on AgaStream. Changes are saved in this browser.</p></div><div class="admin-heading-actions"><span class="admin-status"><i class="fa fa-circle"></i> Admin mode</span><button class="admin-reset" onclick="restoreDeletedMovies()">Restore deleted titles</button><button class="back-btn" onclick="adminLogout()">Log out</button></div></div>
+    <div id="admin-login" class="admin-card admin-login-card"><div class="admin-card-icon"><i class="fa fa-shield"></i></div><h2>Admin sign in</h2><p>Use your AgaStream administrator credentials to access the catalog editor.</p><form id="admin-login-form" onsubmit="adminLogin(event)"><label>Username<input id="admin-username" autocomplete="username" required placeholder="Admin"></label><label>Password<input id="admin-password" type="password" autocomplete="current-password" required placeholder="••••••••"></label><button class="admin-primary" type="submit"><i class="fa fa-unlock"></i> Enter dashboard</button><div id="admin-login-error" class="admin-error"></div></form></div>
+    <div id="admin-dashboard" style="display:none"><div class="admin-metrics"><div><strong id="admin-total-count">0</strong><span>Total titles</span></div><div><strong id="admin-series-count">0</strong><span>Series</span></div><div><strong id="admin-custom-count">0</strong><span>Your additions</span></div></div>
+      <form class="admin-card site-settings-card" onsubmit="saveSiteSettings(event)"><div class="admin-card-head"><div><span class="admin-eyebrow">SITE CONTROL CENTER</span><h2>Customize everything</h2></div><button type="button" class="admin-reset" onclick="resetSiteSettings()">Reset defaults</button></div><p class="settings-intro">Change the public brand, logo, footer, contact buttons, and custom sections without editing code.</p><div class="admin-form-grid"><label>Site name<input id="setting-site-name" placeholder="AgaStream"></label><label>Logo initials<input id="setting-logo-mark" maxlength="2" placeholder="A"></label><label>Browser tab title<input id="setting-page-title" placeholder="AgaStream | Kinyarwanda movies"></label><label>Footer year<input id="setting-footer-year" placeholder="2026"></label></div><label>Logo image URL<input id="setting-logo-url" type="url" placeholder="https://.../logo.png"></label><label>Or choose a logo file<input id="setting-logo-file" type="file" accept="image/*" onchange="previewAdminLogo(event)"></label><div id="setting-logo-preview" class="admin-logo-preview"></div><label>About text<textarea id="setting-footer-about" rows="3" placeholder="Describe your platform..."></textarea></label><div class="admin-form-grid"><label>Phone number<input id="setting-phone" placeholder="+250 700 000 000"></label><label>Email address<input id="setting-email" type="email" placeholder="hello@example.com"></label><label>YouTube URL<input id="setting-youtube" type="url" placeholder="https://youtube.com/@channel"></label><label>Instagram URL<input id="setting-instagram" type="url" placeholder="https://instagram.com/..."></label><label>Facebook URL<input id="setting-facebook" type="url" placeholder="https://facebook.com/..."></label><label>Copyright name<input id="setting-copyright" placeholder="AgaStream Group"></label></div><div class="asset-callout"><i class="fa fa-plus-circle"></i><div><strong>Add a new public section</strong><small>Give it a short key and display name, then assign that key to movies in the catalog editor.</small></div></div><div class="admin-form-grid"><label>Section key<input id="setting-section-key" pattern="[a-z0-9-]+" placeholder="korean"></label><label>Section name<input id="setting-section-name" placeholder="Korean Movies"></label></div><button class="admin-primary" type="submit"><i class="fa fa-check"></i> Save site settings</button><div id="settings-save-message" class="admin-success"></div><div id="custom-section-list" class="custom-section-list"></div></form>
+      <div class="admin-grid">
+      <form class="admin-card admin-form" id="movie-admin-form" onsubmit="saveAdminMovie(event)"><div class="admin-card-head"><div><span class="admin-eyebrow">CATALOG EDITOR</span><h2 id="admin-form-title">Add a movie</h2></div><button type="button" class="admin-reset" onclick="resetAdminForm()">Clear</button></div><input type="hidden" id="admin-edit-id"><div class="admin-form-grid"><label>Title *<input id="admin-title" required placeholder="e.g. The New Arrival"></label><label>Year<input id="admin-year" placeholder="2026"></label><label>Genre<select id="admin-genre"><option value="action">Action</option><option value="drama">Drama</option><option value="horror">Horror</option><option value="romantic">Romantic</option><option value="documentary">Documentary</option><option value="cartoon">Cartoon</option><option value="thriller">Thriller</option><option value="adventure">Adventure</option><option value="comedy">Comedy</option></select></label><label>Type<select id="admin-type"><option value="movie">Movie</option><option value="series">Series</option></select></label><label>Interpreter<input id="admin-voice" placeholder="Rocky"></label><label>Sections<input id="admin-sections" placeholder="new, trending, action"></label></div><label>Description<textarea id="admin-description" rows="3" placeholder="Short synopsis shown in the movie modal"></textarea></label><div class="asset-callout"><i class="fa fa-link"></i><div><strong>Media & links</strong><small>Use hosted URLs for production. YouTube links are accepted for trailers.</small></div></div><label>Poster image URL<input id="admin-poster" type="url" placeholder="https://.../poster.jpg"></label><label>Or choose a poster file<input id="admin-poster-file" type="file" accept="image/*" onchange="previewAdminPoster(event)"></label><div id="admin-poster-preview" class="admin-poster-preview"></div><label>Main film / external watch URL<input id="admin-watch" type="url" placeholder="https://your-video-site.com/watch/..." required></label><label>Download URL<input id="admin-download" type="url" placeholder="https://your-storage-site.com/movie.mp4"></label><label>YouTube trailer URL<input id="admin-trailer" type="url" placeholder="https://www.youtube.com/watch?v=..."></label><label>Hosted video URL (optional)<input id="admin-video" type="url" placeholder="https://cdn.example.com/movie.mp4"></label><label>Episode URLs <span class="label-hint">one URL per line for series</span><textarea id="admin-episodes" rows="4" placeholder="https://.../episode-1"></textarea></label><label class="admin-check"><input id="admin-is-new" type="checkbox"> Mark as new release</label><button class="admin-primary" type="submit"><i class="fa fa-save"></i> Save title</button><div id="admin-save-message" class="admin-success"></div></form>
+      <div class="admin-card admin-library"><div class="admin-card-head"><div><span class="admin-eyebrow">LIBRARY</span><h2>Your titles</h2></div><input class="admin-filter" id="admin-filter" oninput="renderAdminLibrary(this.value)" placeholder="Filter titles..."></div><div id="admin-library-list"></div></div>
+    </div><div class="admin-note"><i class="fa fa-info-circle"></i><span><strong>Static-site note:</strong> this dashboard stores catalog edits in <code>localStorage</code> on this browser. The supplied credentials are suitable for this prototype only; use server-side auth/database before publishing a real admin system.</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ FULL PLAYER MODAL ═══ -->
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+
+    <!-- VIDEO PLAYER -->
+    <div class="player-wrap">
+      <div class="player-screen" id="playerScreen">
+        <img class="player-bg-poster" id="playerBgPoster" src="" alt=""/>
+        <div class="player-center" id="playerCenter">
+          <button class="player-big-btn" id="playerPlayBtn">&#9654;</button>
+          <div class="player-title-text" id="playerTitleText"></div>
+          <div class="player-sub-text" id="playerSubText">Click play to watch online</div>
+        </div>
+        <!-- local video -->
+        <div id="local-video-wrap">
+          <button class="local-close" onclick="closeLocalVideo()">&#10005;</button>
+          <video id="localVideoEl" controls></video>
+        </div>
+      </div>
+
+      <!-- CONTROLS BAR -->
+      <div class="player-controls">
+        <button class="player-ctrl-btn ctrl-play" id="ctrlPlayBtn">
+          <i class="fa fa-play"></i> Watch Online
+        </button>
+        <button class="player-ctrl-btn ctrl-trailer" id="ctrlTrailerBtn">
+          <i class="fa fa-film"></i> Play Trailer
+        </button>
+        <button class="player-ctrl-btn ctrl-download" id="ctrlDownloadBtn">
+          <i class="fa fa-download"></i> Download
+        </button>
+        <button class="player-ctrl-btn ctrl-list">
+          <i class="fa fa-plus"></i> My List
+        </button>
+      </div>
+
+      <button class="modal-close" onclick="closeModalDirect()">&#10005;</button>
+    </div>
+
+    <!-- MOVIE INFO -->
+    <div class="modal-body">
+      <div class="modal-poster-row">
+        <div class="modal-thumb"><div id="modal-thumb-inner"></div></div>
+        <div class="modal-info-col">
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-meta" id="modal-meta"></div>
+          <div class="modal-desc" id="modal-desc"></div>
+        </div>
+      </div>
+      <div id="modal-episodes"></div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+<button id="back-top" onclick="scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script src="Script.js"></script>
+</body>
+</html>
